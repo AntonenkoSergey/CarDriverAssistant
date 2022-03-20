@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CarDriverAssistant/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/CarDriverAssistant/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/CarDriverAssistant/app/src/main/res/layout/activity_login.xml" value="0.13020833333333334" />
         <entry key="..\:/CarDriverAssistant/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
       </map>
     </option>
