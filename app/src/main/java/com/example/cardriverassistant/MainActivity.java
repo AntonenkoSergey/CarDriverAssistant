@@ -2,16 +2,23 @@ package com.example.cardriverassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.concurrent.TimeUnit;
+
 
 public class MainActivity extends AppCompatActivity {
     ImageView green;//перша картинка
     ImageView yellow;//друга картинка
     ImageView red;//третя картинка
     LoadingTask lt;//об`явленя класу для роботи з фоновим потоком
+    private static final String TAG = "MyLog";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,80 +32,55 @@ public class MainActivity extends AppCompatActivity {
         lt.execute();
     }
 //---1------------------------------------------------------------------------------------------------
-
-    //клас для роботи з фоновим потоком
-    private class LoadingTask extends AsyncTask<Void, Integer, Integer> {
-
+    private class LoadingTask extends  AsyncTask<Void,Integer,Void>{
         //завантаження стартових данних
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            // Toast.makeText(MainActivity.this, "start", Toast.LENGTH_SHORT).show();
             green.setVisibility(View.INVISIBLE);
-            green.setVisibility(View.INVISIBLE);
-            green.setVisibility(View.INVISIBLE);
-
+            yellow.setVisibility(View.INVISIBLE);
+            red.setVisibility(View.INVISIBLE);
         }
-
         // Основна робота спотоком
         @Override
-        protected Integer doInBackground(Void... params) {
-            int result = 12;
-            try {
-                int counter = 0;
-
-                for (int i = 0; i < loading0.length; i++) {
-                    if (i != 3) {
-                        getFloor(counter);
-                        //передача проміжкових данних
-                        publishProgress(++counter);
-                    } else {
-                        if (!isOnline()) {
-                            result = 1;
-                            break;
-                        }
-
-                    }
+        protected Void doInBackground(Void... params) {
+            int n= 0;
+            for (int i = 0; i < 4; i++) {
+                try {
+                    publishProgress(n++);//передача проміжкових данних
+                    TimeUnit.SECONDS.sleep(2);//атримка в сикундах
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-            //передача кінечних данних
-            return result;
+            return null;
         }
-
-        // результат роботі потоку
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if (result == 1) {
-                imageView.setImageResource(R.drawable.no_wifi);
-                mInfoTextView.setText(R.string.erroe_wifi);
-                mProgressBar.setProgress(0);
-                faButton.setVisibility(View.VISIBLE);
-            } else {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-
-            }
-        }
-
         //робота з проміжковими данними
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
 
-            int n = values[0] - 1;
-            mInfoTextView.setText(loading0[n]);
-            mProgressBar.setProgress(values[0]);
-
+            Log.d(TAG,values[0].toString());// ликористання логу
+            if (values[0]==1){
+                green.setVisibility(View.VISIBLE);
+            }
+            if (values[0]==2){
+                yellow.setVisibility(View.VISIBLE);
+            }
+            if (values[0]==3){
+                red.setVisibility(View.VISIBLE);
+            }
         }
-
-        private void getFloor(int floor) throws InterruptedException {
-            TimeUnit.SECONDS.sleep(2);
+        // результат роботі потоку
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //виклик нового активіті
+            startActivity(new Intent(getApplicationContext(), Authorization.class));
+            finish();
         }
     }
-    //----------------------1---------------------------------------------------------------------
-
 }
+//----------------------1---------------------------------------------------------------------
+
