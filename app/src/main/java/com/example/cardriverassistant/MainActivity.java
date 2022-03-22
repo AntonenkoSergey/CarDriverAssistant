@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 4; i++) {
                 try {
                     publishProgress(n++);//передача проміжкових данних
-                    TimeUnit.SECONDS.sleep(2);//атримка в сикундах
+                    TimeUnit.SECONDS.sleep(1);//атримка в сикундах
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
