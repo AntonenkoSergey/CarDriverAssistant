@@ -3,7 +3,8 @@
     <string name="authorization"><b>Авторизація</b></string>
     <string name="check_Save">Запам`ятати</string>
     <string name="registration"> <i><u>Реєстрація </u></i></string>
-   <!-- <b>жирный шрифт</b>
-    <i>наклонный шрифт</i>
-    <u>подчеркнутый шрифт</u>-->
+    <string name="to_come_in">Вхід</string>
+    <!-- <b>жирный шрифт</b>
+     <i>наклонный шрифт</i>
+     <u>подчеркнутый шрифт</u>-->
 </resources>
