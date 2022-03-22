@@ -4,6 +4,8 @@
     <string name="check_Save">Запам`ятати</string>
     <string name="registration"> <i><u>Реєстрація </u></i></string>
     <string name="to_come_in">Вхід</string>
+    <string name="login">логін</string>
+    <string name="password">пароль</string>
     <!-- <b>жирный шрифт</b>
      <i>наклонный шрифт</i>
      <u>подчеркнутый шрифт</u>-->
